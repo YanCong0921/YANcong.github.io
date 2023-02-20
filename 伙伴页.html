@@ -1,0 +1,589 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0036)https://www.yinjispace.com/interiors -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+    <title>YANCong-伙伴</title>
+    <meta name="keywords" content="室内设计素材网,室内设计师作品,室内设计效果图下载,室内设计,售楼处设计效果图,样板房设计效果图,景观设计效果图">
+    <meta name="description" content="印际传媒致力于新鲜及时的设计资讯传播和全球优质设计出品推广，涉及建筑、景观、室内、艺术及产品等多领域，以设计师独特视角，由现象触及本质，给与受众更多的素材来源与灵感源泉。">
+	<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+	<meta property="og:title" content="">
+	<meta property="og:url" content="">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="">
+    <link href="./css/index.css" rel="stylesheet" type="text/css">
+    <script src="./印际-Interiors_files/hm.js.下载"></script><script src="./印际-Interiors_files/jquery-1.10.2.min.js.下载"></script>
+	<script src="./印际-Interiors_files/layer.js.下载"></script><link rel="stylesheet" href="./css/layer.css" id="layuicss-layer">
+	
+</head>
+
+</head>
+
+<body class="home" style="">
+  <header id="masthead" class="site-header">
+    <div class="wrapper">
+      <div class="primaryHeader fadeIn">
+        <div class="site-branding">
+          <h1 class="site-title">
+            <a
+              href="index.html"
+              rel="noopener noreferrer nofollow"
+              title="首页"
+              >YANCong</a
+            >
+          </h1>
+        </div>
+        <!-- .site-branding -->
+
+        <!-- search content start -->
+
+        <!-- search end -->
+      </div>
+    </div>
+  </header>
+    <!--导航弹出---->
+    
+    <!--导航弹出结束---->
+	<!------点击专题弹出---->
+	
+	<!------专题导航弹出结束---->
+	<!------点击设计师弹出---->
+	
+	<!------设计师导航弹出结束---->
+
+
+    
+
+<!--内容开始---->
+
+<!--二级导航结束---->
+
+<!--文章内容开始---->
+<!-- 其他设计师介绍 -->
+          			<ul class="products clear">
+																				<li class="product">
+					<a href="" target="_blank">
+						<img data-src="" alt="" src="img\3m我\h1.png">
+						<h2 class="woocommerce-loop-product__title">
+							日本 | Interiors
+						</h2>
+						<span class="productSubTitle">哆啦A梦</span>
+					</a>
+				</li>
+																<li class="product">
+					<a href="" target="_blank">
+						<img data-src="" alt="" src="img\3m我\h2.png">
+						<h2 class="woocommerce-loop-product__title">
+							日本 | Architecture
+						</h2>
+						<span class="productSubTitle">皮卡丘</span>
+					</a>
+				</li>
+																<li class="product">
+					<a href="" target="_blank">
+						<img data-src="" alt="" src="img\3m我\h3.png">
+						<h2 class="woocommerce-loop-product__title">
+							日本 | Interiors
+						</h2>
+						<span class="productSubTitle">可达鸭</span>
+					</a>
+				</li>
+											</ul>
+<script>
+    $(document).ready(function(){
+		// 列表横竖图
+		let row = col = [];
+		let item_list = $('.contentGrid').find('li');
+		$(item_list).each(function (index, value) {
+			
+			$(this).find('img').attr('src',$(value).find('img').data('src'));
+			let imgs = getimg($(value).find('img').data('src'),function(width,height){
+				// console.log({width: width,height: height});
+				if ((width >= height)) { //横图
+					$(value).addClass('landscape');
+				} else { //竖图
+					$(value).addClass('portrait');
+				}
+			});
+			
+		});
+	});
+
+	// 临时改变图片地址
+	function getimg(src,callback) {
+		var img = new Image(); // 创建对象
+		img.src = src;
+		if (img.complete) {
+			callback(img.width, img.height);
+		} else {
+			img.onload = function () {
+				callback(img.width, img.height);
+			}
+		}
+	}
+
+	// 分享
+	$(".Share").click(function () {
+		$(".fenbox").toggle();
+	});
+	
+	// 分页
+	let page = 2,isEnd = false;
+	$('#more_posts').click(function () {
+		let that=this;
+		let html = '';
+		let baseurl=window.location.href.split("/");
+		let category,nextpage;
+
+		let cate_name=$("#choose_cate").val();
+		if(baseurl.length===4){
+			category=baseurl[3];
+			nextpage=(Number(baseurl[5]??1)+1);
+		}else if(baseurl.length===6){
+			category=baseurl[3];
+			nextpage=(Number(baseurl[5]??1)+1);
+		}else{
+			category=baseurl[4];
+			nextpage=(Number(baseurl[6]??1)+1);
+		}
+
+		if(cate_name!=='999'){
+			if((category!=cate_name) && page){
+				page=2;
+				nextpage=2;
+			}
+			category=cate_name;
+		}
+
+
+
+		// console.log(baseurl,category,nextpage);
+		$(that).text('LOADING ...').css({'pointer-events':'none','cursor':'not-allowed'});
+		
+		$.ajax({
+			url: '/'+category+'/page/'+nextpage,
+			type: 'POST',
+			dataType: 'json',
+			data: {},
+			success(res) {
+				if (res.status == 200) {
+					let lang = 'zh-CN';
+					let data = res.msg.data;
+					let htmlList = new Array(data.length)
+					let htmlListIndex=0
+					console.log(data);
+					$(data).each(function (index, value) {
+						let img=getimg('/uploads/'+value.custom_thum,function(width, height){
+							html = `<li class="contentItem ${((width >= height))?'landscape':'portrait'}">
+								<a href="/article/${value.static_url}" target="_blank">
+									<img  data-src="/uploads/${value.custom_thum}" alt="${lang=='zh-CN'?value.title_name_cn:value.title_name_en}" src="/uploads/${value.custom_thum}" />
+								</a>
+								<div class="itemMeta" style="opacity: 1;">
+									<div class="postCategories">
+										<a href="javascript:;">
+										${lang=='zh-CN'?(value.designer_info?value.designer_info.title_cn:value.title_designer_cn):(value.designer_info?value.designer_info.title_en:value.title_designer_en) }
+										</a>
+										<a href="/article/${ getcategory('name',value.category) }" target="_blank">${ getcategory('name',value.category) }</a>
+									</div>
+									<h2>
+										<a href="/article/${value.static_url}" target="_blank">${lang=='zh-CN'?value.title_name_cn:value.title_name_en}</a>
+									</h2>
+									<div class="articleExcerpt">
+										${lang=='zh-CN'?value.description_cn:value.description_en}
+									</div>
+								</div>
+							</li>`;
+							$(that).text('Load More Articles').css({'pointer-events':'auto','cursor':'pointer'});
+							htmlList[index]=html
+							htmlListIndex++
+							if(htmlListIndex===data.length){
+								$(htmlList).each(function (index, value) {
+									$('.contentGrid').append(htmlList[index])
+								})
+							}
+							//$('.contentGrid').append(html);
+						});
+					});
+					
+					if(baseurl.indexOf('page')===-1){
+						window.history.replaceState({}, document.title, '//'+baseurl[2]+'/'+category+'/page/'+nextpage);
+						// window.history.replaceState({}, document.title, window.location.href +'/page/'+nextpage);
+					// }else if(baseurl.length===4){
+					// 	window.history.replaceState({}, document.title, '//'+baseurl[2]+'/'+category+'/page/'+nextpage);
+					}else{
+						window.history.replaceState({}, document.title, '//'+baseurl[2]+'/'+category+'/page/'+nextpage);
+					}
+					if (data.length >= 15) {
+						isEnd = true;
+						page++;
+					} else {
+						$(that).hide();
+						isEnd = false;
+					}
+				} else {
+					isEnd = false;
+				}
+			},
+		});
+	});
+
+	function getcategory(type,data){
+		let arr=['1','2','6','24'];
+		let id='',name='';
+		$(data).map(function(index,val){
+			if(arr.indexOf(val.id)===-1){
+				if(type==='id'){
+					id=val.id;
+				}else{
+					name=val.name;
+				}
+			}
+		});
+		// 因为map，each，forEach遍历数组时是不会停止的，需要一个外部变量接收数据存起来，然后在外部返回
+		if(type==='id'){
+			return id;
+		}else{
+			return name;
+		}
+	}
+
+	
+	function getCateList(that){
+		if(!$(that).data('id')){$('.contentGrid').html('无数据');}
+		let lang = 'zh-CN';
+		$('#choose_cate').val($(that).data('name'));
+		$.ajax({
+			url: '/change_cate',
+			type: 'POST',
+			dataType: 'json',
+			data: {ids:$(that).data('id')},
+			success: function(data){
+				// console.log(data.msg.data);
+				if(data.msg=='无数据'){
+					$('.pagination').hide();
+				}else{
+					let datas=data.msg.data;
+					if(datas.length>0){
+						// console.log(datas);
+						$('.contentGrid').empty();
+						$(datas).map(function(index,value){
+							let img=getimg('/uploads/'+value.custom_thum,function(width, height){
+								html = `<li class="contentItem ${(width >= height)?'landscape':'portrait'}">
+											<a href="/article/${value.static_url}" target="_blank">
+												<img  data-src="/uploads/${value.custom_thum}" alt="${lang=='zh-CN'?value.title_name_cn:value.title_name_en}" src="/uploads/${value.custom_thum}" />
+											</a>
+											<div class="itemMeta" style="opacity: 1;">
+												<div class="postCategories">
+													<a href="javascript:;">
+													${lang=='zh-CN'?(value.designer_info?value.designer_info.title_cn:value.title_designer_cn):(value.designer_info?value.designer_info.title_en:value.title_designer_en) }
+													</a>
+													<a href="/article/${ getcategory('name',value.category) }" target="_blank">${ getcategory('name',value.category) }</a>
+												</div>
+												<h2>
+													<a href="/article/${value.static_url}" target="_blank">${lang=='zh-CN'?value.title_name_cn:value.title_name_en}</a>
+												</h2>
+												<div class="articleExcerpt">${lang=='zh-CN'?value.description_cn:value.description_en}</div>
+											</div>
+										</li>`;
+								$('.contentGrid').append(html);
+							});
+							if(datas.length>=15){
+								$('#more_posts').attr('data-type',$(that).find('.front').text().trim()).show();
+							}else{
+								$('#more_posts').hide();
+							}
+						});
+					}
+				}
+			}
+		});
+	}
+</script>
+
+
+
+    <!-- 登录 -->
+    <div class="login_box" style="display:none;">
+        <div class="new_folder_bj"></div>
+        <span class="close_nav"></span>
+            <div class="login_folder">
+                <div id="login" class="login" style="margin-top:5%"> 
+                    <div class="wxlogin hide">
+                        <!--h1><a href="/" title="印际" tabindex="-1">印际</a></h1-->
+                        <!-- <h2>微信扫码登陆</h2> -->
+                        <p><iframe frameborder="0" scrolling="no" width="300" height="395" src="./印际-Interiors_files/weixin.html"></iframe></p>
+                        <!--div class="login_ico"><a href="javascript:void(0);" onclick="WeChatLogin();">
+                            <img src="/img/diannao_03.gif" width="51" height="51" alt="账号登陆"></a>
+                            </div-->
+                    </div>
+
+
+                    <!-- 登陸 -->
+                    <div class="ma_box ">
+                        <!--div class="login_ico" style='position: absolute;'><a href="javascript:void(0);" onclick="WeChatLogin();"><img src="/img/erweima.gif" width="51" height="51" alt="账号登陆"></a></div-->
+                        <!--h2>用户登录</h2-->
+                        <form name="loginform" id="loginform" action="https://www.yinjispace.com/user/login" method="post">
+                            <input type="hidden" name="_token" value="mgQJQg3pqo488KDujj8EhuoOyRQ7f45zdhh2ZIlJ">
+                            <p style="margin-top:48px;">
+                                <label for="user_login">
+                                    <input type="text" name="user_login" id="user_login" class="input" value="" size="20" placeholder="手机号码/昵称/邮箱">
+                                </label>
+                            </p>
+                            <p>
+                                <label for="user_pass">
+                                    <input type="password" name="password" id="user_pass" class="input" value="" size="20" placeholder="密码">
+                                </label>
+                            </p>
+                            <!--p class="forgetmenot" style='text-align:center;width: 316px;'>
+                                <label for="rememberme">
+                                    <input name="rememberme" type="checkbox" checked='checked' id="rememberme" value="forever">记住我的登录信息 
+                                </label>
+                            </p-->
+                            <p class="submit" style="margin-bottom: 112px;">
+                                <input type="button" name="wp-submit" id="wp-submit-login" class="button button-primary button-large" value="LOGIN">
+                                <input type="hidden" name="redirect_to" value="/user/index">
+                                <input type="hidden" name="testcookie" value="1">
+                            </p>
+                        </form>
+                    </div>
+                   	<p id="nav" class="nav"> 
+		    <a href="javascript:void(0);" onclick="WeChatLogin();" class="fl">微信登录</a>
+			<a href="https://www.yinjispace.com/user/register">注册</a>
+			<a href="https://www.yinjispace.com/user/forgot_password" class="fr">忘记密码</a>
+	    	</p>
+                </div>
+            </div>
+        </div>
+    
+    <!--登陆结束-->
+
+
+
+    <!--底部---->
+    
+
+<script type="text/javascript">
+	$('.myAccount').mouseover(function(){
+		$('.logout').show();
+	});
+	$('.myAccount').mouseout(function(){
+		$('.logout').hide();
+	});
+    //终端判断
+    function isMobile(){
+        if((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+    
+
+			let IS_LOGIN = false;
+		let IS_VIP = false;
+    
+	
+    // 语言切换
+	$("#lang-switch").click(function () {
+		let lang = $(this).attr('data');
+		$.ajax({
+			url: '/lang/switch',
+			type: 'GET',
+			dataType: 'json',
+			data: {lang:lang},
+			complete: function () {
+				window.location.reload();
+			}
+		});
+	});
+
+	// 搜索开始
+    $(document).on('click','.searchIcon',function(){
+        $('.phc_head_menu').hide();
+        $('.nav_search_box').show();
+        $('#nav_search_text').focus();
+        $('.search_keyword').css('opacity',1);
+
+        let items = localStorage.searchHistoryItems ? localStorage.searchHistoryItems.split('|') : [];
+        let h = '';
+        items.map(function(item,index){
+            if(index<5)
+            h += '<dd><span>' + item +'</span><i class="remove-resent-search-item"></i></dd>'
+        })
+
+        $('.resent-search-items').html(h);
+        return false;
+        layer.open({
+            type: 1,
+            title: false,
+            closeBtn: 0,
+            anim: -1,
+            shadeClose: true,
+            isOutAnim: false,
+            content: $('#search')
+        })
+    })
+
+    let closeSearch = function(){
+        $('.nav_search_box').hide();
+        $('.search-btn').show();
+        $('.phc_head_menu').show();
+        $('#nav_search_text').val('');
+        $('.search_keyword').css('opacity',0);
+    }
+
+    $('.nav_search_box_close').on('click',closeSearch)
+
+    $('#nav_search_text').on('blur',closeSearch)
+
+    //监听回车事件
+    $(document).keyup(function(event){
+        if(event.keyCode ==13){
+            $('.nav-search-btn').trigger("click");
+        }
+    });
+
+    // javascript阻止blur事件触发
+    $('.nav-search-btn').on('mousedown',function(event){
+        event.preventDefault()
+    })
+
+    $('.hot-search').on('mousedown',function(event){
+        event.preventDefault()
+    })
+
+    //搜索功能 根据选择的关键字
+    function searchItem(value){
+        if (value && value != '') {
+            window.location.href = '/search?keyword=' + encodeURIComponent(value);
+        }
+    }
+
+    $('.hot-search').on('click','dd',function(event){
+        let value = $(this).text()
+        searchItem(value)
+    })
+
+
+    $('.nav-search-btn').on('click',function(){
+        let value = $('#nav_search_text').val().trim();
+        if(value && value!=''){
+            let items = localStorage.searchHistoryItems ? localStorage.searchHistoryItems.split('|') : [];
+            if(items.length>5){
+                items.splice(0,1,value);
+            }else{
+                items.unshift(value);
+            }
+
+            localStorage.searchHistoryItems = items.join('|');
+            var h = '';
+            items.map(function(item,index){
+                if(index<5)
+                h += `<dd><span>${item}</span><i class="remove-resent-search-item"></i></dd>`;
+            })
+
+            $('.resent-search-items').html(h);
+
+            if (value != '') {
+                window.location.href = '/search?keyword=' + encodeURIComponent(value);
+            }
+        }
+        return false;
+    })
+
+
+    $('.resent-search-items').on('click','span',function(){
+        var value = $(this).text()
+        searchItem(value)
+    })
+
+
+    $('.resent-search-items').on('mousedown','dd',function(event){
+        event.preventDefault()
+    })
+
+
+    $(document).on('click','.remove-resent-search-item',function(event){
+        event.preventDefault()
+        var $this = $(this);
+        var items = localStorage.searchHistoryItems ? localStorage.searchHistoryItems.split('|') : [];
+        items.map(function(item,idx){
+            if(item == $this.parent().text()){
+                items.splice(idx,1);
+            }
+        })
+        localStorage.searchHistoryItems = items.join('|');
+        $(this).parent().remove();
+    })
+
+	$.ajax({
+		async: false,
+		url: '/hot_search_ajax',
+		type: 'GET',
+		dataType: 'json',
+		data: {},
+		success: function (data) {
+			if (data.status_code == 0) {
+				var values = data.data;index = 0
+				for(i in values){
+					if(index<5)
+					$('.hot-search').append('<dd>'+values[i]+'</dd>');
+					index++;
+				}
+			}else{
+				layer.msg(data.message,{skin: 'intro-login-class layui-layer-hui'})
+			}
+		}
+	});
+    // 搜索结束
+    function WeChatLogin() {
+			if ($(".wxlogin").hasClass("hide")) {
+				$(".wxlogin").removeClass("hide");
+				$('.ma_box').addClass("hide");
+			} else {
+				$(".wxlogin").addClass("hide");
+				$('.ma_box').removeClass("hide");
+			}
+		}
+
+    // 关闭导航
+    $('.close_nav').click(function(){
+        $('#Menu_box').fadeOut(1000);
+    });
+    $('.close_nav').click(function(){
+        $('#Designers_box').fadeOut(1000);
+    });
+    $('.close_nav').click(function(){
+        $('#Series_box').fadeOut(1000);
+    });
+    
+    $('.close_nav').click(function(){
+        $('.login_box').fadeOut(1000);
+    });
+	// 打开导航弹窗
+	$("#Menu").click(function() {
+		$("#Menu_box").fadeIn(1000);
+	});
+
+	$(".Designers").click(function(){
+	 	$("#Designers_box").fadeIn(1000);
+	});
+	
+	$(".Series").click(function() {
+		$("#Series_box").fadeIn(1000);
+	});
+   
+</script>
+<!-- 百度统计 -->
+<script>
+	var _hmt = _hmt || [];
+	(function() {
+		var hm = document.createElement("script");
+		hm.src = "https://hm.baidu.com/hm.js?e08f2882130cf549fbb9a83c44451dca";
+		var s = document.getElementsByTagName("script")[0]; 
+		s.parentNode.insertBefore(hm, s);
+	})();
+</script>
+<!-- 百度统计结束 -->
+
+<audio controls="controls" style="display: none;"></audio></body></html>
